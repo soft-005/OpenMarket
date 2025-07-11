@@ -18,6 +18,7 @@ class ProfileController extends Controller
     {
         return view('profile.edit', [
             'user' => $request->user(),
+            'profile' => Auth::user()->profile,
         ]);
     }
 
@@ -30,6 +31,16 @@ class ProfileController extends Controller
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
+        }
+        
+        if($request->hasFile('avater')){
+            $avater = $request->avater;
+            $avater_new_name = time().$avater->getClientOriginalName();
+            $avater->move('Uploads/avaters/', $avater_new_name);
+
+            $request->user()->profile->avater = '/Uploads/avaters/'.$avater_new_name;
+            $request->user()->profile->save();
+
         }
 
         $request->user()->save();

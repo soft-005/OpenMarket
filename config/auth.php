@@ -64,6 +64,8 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
+        Surfsidemedia\Shoppingcart\ShoppingcartServiceProvider::class,
+        //Jenssegers\OAuth\OAuthServiceProvider::class,
 
         // 'users' => [
         //     'driver' => 'database',

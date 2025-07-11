@@ -35,4 +35,18 @@ return [
         ],
     ],
 
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => 'http://me:8000/auth/github/callback',
+        'guzzle' => [
+            'verify' => false, //Only for local/testing
+        ],
+    ],
+     'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => 'http://me:8000/auth/google/callback',
+    ],
+
 ];

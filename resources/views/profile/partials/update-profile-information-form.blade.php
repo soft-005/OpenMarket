@@ -13,9 +13,12 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
+<!--  -->
+        <input type="file" accept="jpg" name="avater" />
+        <input type="text" value="{{ $profile->facebook }}">
 
         <div>
             <x-input-label for="name" :value="__('Name')" />

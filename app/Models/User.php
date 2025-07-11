@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'admin',
+        'github_refresh_token',
+        'google_refresh_token',
+        'google_id',
+        'github_id',
+        'google_token',
+        'github_token',
     ];
 
     /**
@@ -31,6 +39,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'admin',
+    ];
+
+    //
+    protected $dates = [
+        'deleted_at'
     ];
 
     /**
@@ -38,11 +52,22 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    //
+    //  public function getAvaterAttribute($avater){
+    //    return asset($avater);
+    //  }
+
+    //
+    public function profile(){
+        return $this->hasOne('App\Models\Profile');
     }
 }
